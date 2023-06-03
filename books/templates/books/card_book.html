@@ -1,0 +1,16 @@
+{% load static %}
+
+
+<div class="card w-60 mb-2">
+    <div class="card-body">
+      <h4 class="card-title">{{book.title}}</h4>
+      <p class="card-text"> <strong> Author:</strong> {% for author in book.author_name %} {{author}}. {% endfor %}</p>
+      <p class="card-text"> <strong> Publisher:</strong> {% for publisher in  book.publisher %} {{publisher}} - {% endfor %}</p>
+      <p class="card-text"> <strong> Language: </strong> {% for language  in  book.language %} {{ language | capfirst }} -  {% endfor %}</p>
+      <p class="card-text"> <strong> Counts Editions: </strong> {{book.edition_count}}</p>
+      <p class="card-text"> <strong> First Publish Year: </strong>  {{book.first_publish_year}}</p>
+      <p class="card-text"> <strong> Publish Date: </strong>  {% for publish_date in book.publish_date %} {{publish_date}} -  {% endfor %}</p>
+
+      <a href="https://openlibrary.org/{{book.seed.0}}" target="_blank" class="btn btn-primary">See more at Open Library.</a>
+    </div>
+</div>
