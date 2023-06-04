@@ -39,7 +39,7 @@ You need install Python 3.9^
 Clone the project from repository in any folder:
 
 ```bash
-git clone https://gitlab.com/ivanuribe39/django_book_api.git
+git clone https://github.com/Ivancito-ur/django_book_api.git
 ```
 
 Within the project we are going to activate a virtual environment and install the necessary libraries.
