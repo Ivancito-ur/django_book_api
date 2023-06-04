@@ -85,12 +85,7 @@ Make migrations Django (Windows)
 
 ```bash
 py manage.py makemigrations
-py python manage.py migrate
-```
-
-Run Server Django (Linux or Mac)
-```bash
-python3 manage.py makemigrations
+py manage.py migrate
 ```
 
 Run Server Django (Linux or Mac)
