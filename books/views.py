@@ -1,10 +1,17 @@
-from django.shortcuts import render, redirect
 import requests, json
+from django.shortcuts import render, redirect
+from django.utils import timezone
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
+from books.models.Book import Book
 
 
 #Variables statics
 ERROR_MESSAGE_FORM = "If you want to search for books you need the title or name of the author."
 LINK_SEARCH_API_LIBRARY = "https://openlibrary.org/search.json?"
+LINK_BOOK_API_LIBRARY = "https://openlibrary.org/books/"
+LINK_API_LIBRARY = "https://openlibrary.org/"
 
 def index(request):
     return render(request, 'books/index.html', {})
@@ -46,6 +53,35 @@ def get_books_by_title_or_author(request):
     
     return render(request, 'books/index.html', {'books':json_data['docs']})
 
+def save_favorite_book(request, id_book):
+    
+    request_api = requests.get(LINK_BOOK_API_LIBRARY + id_book + ".json")
+    json_data = json.loads(request_api.text)
+    
+    book = Book(
+        id_book = id_book,
+        title=json_data['title'], 
+        link_access= LINK_API_LIBRARY + json_data['key'], 
+        date_record=timezone.datetime.now()
+    )
+    
+    book.save()
+    
+    return HttpResponseRedirect(reverse('books:get_favorite_books'))
+
+
+def get_favorite_books(request):
+    books = Book.objects.all()
+    return render(request, 'books/favorites_group.html', {'books':books})
+
+
+def delete_favorite_book(request, id_book):
+    try:
+        Book.objects.filter(id_book=id_book).delete()
+    except:
+        pass
+    return HttpResponseRedirect(reverse('books:get_favorite_books'))
+    
 
 def view_404(request, exception=None):
     """

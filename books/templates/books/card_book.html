@@ -11,6 +11,7 @@
       <p class="card-text"> <strong> First Publish Year: </strong>  {{book.first_publish_year}}</p>
       <p class="card-text"> <strong> Publish Date: </strong>  {% for publish_date in book.publish_date %} {{publish_date}} -  {% endfor %}</p>
 
-      <a href="https://openlibrary.org/{{book.seed.0}}" target="_blank" class="btn btn-primary">See more at Open Library.</a>
+      <a href="https://openlibrary.org{{book.seed.0}}" target="_blank" class="btn btn-primary">See more at Open Library.</a>
+      <a href="{% url 'books:save_favorite_book' book.edition_key.0 %}"  class="btn btn-warning">Save like favorite.</a>
     </div>
 </div>
