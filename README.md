@@ -118,6 +118,10 @@ Quit the server with CTRL-BREAK.
  - [Virtual envirroment Python](https://docs.python.org/3/library/venv.html)
 
 
+## Manual Use
+[Click to show manual use 📖](/resources/HowtoSearchandManageFavoriteBooksonOpenLibrary_PDF_2023-06-04142954.139715.pdf)
+
+
 ## Contributing
 
 Contributions are always welcome!
