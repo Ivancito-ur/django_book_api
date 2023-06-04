@@ -22,7 +22,7 @@
                           </svg>
                         Search Books from Open Library JSON API
                     </a>
-                    <a class="navbar-brand btn btn-warning" href="{% url 'books:get_favorite_books' %}">
+                    <a class="navbar-brand btn btn-warning" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stars" viewBox="0 0 16 16">
                             <path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z"/>
                           </svg>
@@ -35,61 +35,27 @@
         <hr>
     
         <div class="container">
-            <div class="row g-2">
-              <div class="col-4">
-                <div class="container text-center">
-                    <h3>Search book by Author o Title <span class="badge bg-secondary"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                      </svg> </span></h3>
-    
-                      <hr>
-    
-                      <form action="{% url 'books:get_books_title_author' %}" method="get">
-    
-                        {% if error_form %}
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    {{error_form}}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                          </div>
-                        {% endif %}
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInputTitle" name="search_title">
-                            <label for="floatingInputTitle">Search by Title</label>
-                        </div>
-                        <h3>Or</h3>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInputAuthor" name="search_author">
-                            <label for="floatingInputAuthor">Search by Author</label>
-                        </div>
-    
-                        <button type="submit" class="btn btn-primary">Search</button>
-    
-                      </form>
-    
-                </div>
-              </div>
-    
-              <div class="col-8">
+            <div class="row row-cols-1 row-cols-md-2 g-4">
 
-                {% if books %}
+                {% if not books %} <h3>No hay libros guardados como favoritos ...</h3> {% endif %}
+
+                {% for book in books %}
                 
-                    {% for book in books %}
-
-                        {% include 'books/card_book.html' %}
-
-                    {% endfor %}
-
-                {% else %}
-
-                <div class="container text-center">
-
-                    <h3>No hay libros por ver ...</h3>
-                    <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?ixlib=rb-4.0.3" width="60%" height="60%" alt="" srcset="">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{book.title}}</h5>
+                            <a href="{{book.link_access}}" target="_blank" class="btn btn-primary">See more at Open Library.</a>
+                            <a href="{% url 'books:delete_favorite_book' book.id_book%}" class="btn btn-danger">Delete.</a>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-body-secondary">{{book.date_record}}</small>
+                        </div>
+                    </div>
                 </div>
+                
+                {% endfor %}
 
-                {% endif %}
-    
-              </div>
             </div>
         </div>
     </div>
