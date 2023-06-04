@@ -106,6 +106,8 @@ Starting development server at http://127.0.0.1:8000/
 Quit the server with CTRL-BREAK.
 ```
 
+Now enter to link:  http://127.0.0.1:8000/
+
 ## References
 
  - [Django Framework](https://docs.djangoproject.com/en/4.2/)
